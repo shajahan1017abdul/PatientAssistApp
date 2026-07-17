@@ -20,6 +20,7 @@ android.permissions = INTERNET
 android.api = 35
 android.minapi = 23
 android.build_tools = 35.0.0
+android.ndk = 25c
 
 android.bootstrap = sdl2
 
