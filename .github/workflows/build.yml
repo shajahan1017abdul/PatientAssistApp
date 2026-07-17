@@ -36,7 +36,7 @@ jobs:
 
 
             - name: Prepare Android SDK
-        run: |
+            run: |
           mkdir -p $HOME/.android
           touch $HOME/.android/repositories.cfg
 
