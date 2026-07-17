@@ -12,7 +12,7 @@ source.include_exts = py,png,jpg,kv
 # Version
 version = 1.0
 
-# Requirements (ONLY ONE LINE!)
+# Requirements
 requirements = python3,kivy,kivymd
 
 # Orientation
@@ -21,12 +21,15 @@ orientation = portrait
 # Fullscreen
 fullscreen = 0
 
-# Permissions (optional)
+# Permissions
 android.permissions = INTERNET
 
 # Android API
-android.api = 31
-android.minapi = 21
+android.api = 35
+android.minapi = 23
+
+# Build tools
+android.build_tools = 35.0.0
 
 # Bootstrap
 android.bootstrap = sdl2
@@ -37,8 +40,5 @@ log_level = 2
 
 [buildozer]
 
-# Log level
 log_level = 2
-
-# Warn on root
 warn_on_root = 1
