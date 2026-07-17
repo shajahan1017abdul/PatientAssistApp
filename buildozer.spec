@@ -21,6 +21,7 @@ android.api = 35
 android.minapi = 23
 android.build_tools = 35.0.0
 android.ndk = 25c
+android.accept_sdk_license = True
 
 android.bootstrap = sdl2
 
