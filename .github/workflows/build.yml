@@ -25,17 +25,20 @@ jobs:
           pip install --upgrade pip
           pip install buildozer==1.6.0 cython==0.29.37
 
-      - name: Setup Android SDK
+      - name: Accept Android Licenses
         run: |
           mkdir -p $HOME/.android
           touch $HOME/.android/repositories.cfg
 
-          export SDK=$HOME/.buildozer/android/platform/android-sdk
-          mkdir -p $SDK
+          SDKMANAGER="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager"
 
-          yes | sdkmanager --sdk_root=$SDK --licenses || true
+          yes | $SDKMANAGER --licenses || true
 
-          sdkmanager --sdk_root=$SDK \
+      - name: Install Android SDK Packages
+        run: |
+          SDKMANAGER="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager"
+
+          $SDKMANAGER \
             "platform-tools" \
             "platforms;android-35" \
             "build-tools;35.0.0"
