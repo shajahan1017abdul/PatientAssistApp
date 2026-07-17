@@ -7,15 +7,15 @@ package.domain = org.test
 source.dir = .
 source.include_exts = py,png,jpg,kv
 
-version = 1.0.1
+version = 1.0
 
-requirements = python3,kivy,kivymd,pyjnius
+requirements = python3,kivy,kivymd
 
 orientation = portrait
 
 fullscreen = 0
 
-android.permissions = INTERNET,BLUETOOTH,BLUETOOTH_ADMIN,BLUETOOTH_SCAN,BLUETOOTH_CONNECT
+android.permissions = INTERNET
 
 android.api = 35
 android.minapi = 23
