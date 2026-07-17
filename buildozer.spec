@@ -1,43 +1,44 @@
 [app]
 
-title = Gesture Communication
-package.name = gestureapp
+# App info
+title = My App
+package.name = myapp
 package.domain = org.test
 
+# Source
 source.dir = .
 source.include_exts = py,png,jpg,kv
 
+# Version
 version = 1.0
 
+# Requirements (ONLY ONE LINE!)
 requirements = python3,kivy,kivymd
 
+# Orientation
 orientation = portrait
 
+# Fullscreen
 fullscreen = 0
 
-android.api = 33
+# Permissions (optional)
+android.permissions = INTERNET
+
+# Android API
+android.api = 31
 android.minapi = 21
-android.ndk = 25b
 
-android.permissions = BLUETOOTH,BLUETOOTH_ADMIN,BLUETOOTH_CONNECT,BLUETOOTH_SCAN,INTERNET
+# Bootstrap
+android.bootstrap = sdl2
 
-# IMPORTANT: Fix Bluetooth for Android 12+
-android.enable_androidx = True
-
-# Reduce errors
+# Log level
 log_level = 2
 
-# Skip problematic builds
-android.gradle_dependencies = 
 
-# Faster builds
-p4a.branch = stable
-requirements = python3,kivy,plyer
+[buildozer]
 
-android.permissions = BLUETOOTH,BLUETOOTH_ADMIN,BLUETOOTH_CONNECT,BLUETOOTH_SCAN,INTERNET
+# Log level
+log_level = 2
 
-android.gradle_dependencies = 'androidx.core:core:1.9.0'
-
-android.minapi = 21
-android.api = 33
-android.ndk = 25b
+# Warn on root
+warn_on_root = 1
