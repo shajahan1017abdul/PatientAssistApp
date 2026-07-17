@@ -17,9 +17,9 @@ fullscreen = 0
 
 android.permissions = INTERNET
 
-android.api = 35
+android.api = 34
 android.minapi = 23
-android.build_tools = 35.0.0
+android.build_tools = 34.0.0
 android.ndk = 25c
 
 android.bootstrap = sdl2
