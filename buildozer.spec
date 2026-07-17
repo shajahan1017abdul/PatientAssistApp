@@ -21,7 +21,6 @@ android.api = 35
 android.minapi = 23
 android.build_tools = 35.0.0
 android.ndk = 25c
-android.accept_sdk_license = True
 
 android.bootstrap = sdl2
 
@@ -30,5 +29,5 @@ log_level = 2
 
 [buildozer]
 
-log_level = 3
+log_level = 2
 warn_on_root = 1
