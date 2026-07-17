@@ -35,24 +35,31 @@ jobs:
           pip install buildozer==1.6.0 cython==0.29.37
 
 
-      - name: Prepare Android SDK
+            - name: Prepare Android SDK
         run: |
-          mkdir -p $HOME/.buildozer/android/platform/android-sdk
           mkdir -p $HOME/.android
           touch $HOME/.android/repositories.cfg
 
           export SDK=$HOME/.buildozer/android/platform/android-sdk
 
-          yes | sdkmanager \
-            --sdk_root=$SDK \
-            --licenses || true
+          if [ -f "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" ]; then
+            SDKMANAGER="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager"
+          elif [ -f "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" ]; then
+            SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          else
+            echo "sdkmanager not found"
+            find $ANDROID_SDK_ROOT -name sdkmanager
+            exit 1
+          fi
 
-          sdkmanager \
-            --sdk_root=$SDK \
+          mkdir -p $SDK
+
+          yes | $SDKMANAGER --sdk_root=$SDK --licenses || true
+
+          $SDKMANAGER --sdk_root=$SDK \
             "platform-tools" \
             "platforms;android-35" \
             "build-tools;35.0.0"
-
 
       - name: Verify AIDL
         run: |
