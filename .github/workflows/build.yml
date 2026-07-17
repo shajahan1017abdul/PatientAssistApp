@@ -1,6 +1,7 @@
 name: Build APK
 
-on: [push]
+on:
+  push:
 
 jobs:
   build:
@@ -11,7 +12,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Dependencies
+
+      - name: Install System Dependencies
         run: |
           sudo apt update
           sudo apt install -y \
@@ -20,32 +22,48 @@ jobs:
             git \
             zip \
             unzip \
-            openjdk-17-jdk
+            openjdk-17-jdk \
+            autoconf \
+            libtool \
+            pkg-config \
+            zlib1g-dev
 
+
+      - name: Install Buildozer
+        run: |
           pip install --upgrade pip
           pip install buildozer==1.6.0 cython==0.29.37
 
-      - name: Accept Android Licenses
+
+      - name: Prepare Android SDK
         run: |
+          mkdir -p $HOME/.buildozer/android/platform/android-sdk
           mkdir -p $HOME/.android
           touch $HOME/.android/repositories.cfg
 
-          SDKMANAGER="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager"
+          export SDK=$HOME/.buildozer/android/platform/android-sdk
 
-          yes | $SDKMANAGER --licenses || true
+          yes | sdkmanager \
+            --sdk_root=$SDK \
+            --licenses || true
 
-      - name: Install Android SDK Packages
-        run: |
-          SDKMANAGER="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager"
-
-          $SDKMANAGER \
+          sdkmanager \
+            --sdk_root=$SDK \
             "platform-tools" \
             "platforms;android-35" \
             "build-tools;35.0.0"
 
+
+      - name: Verify AIDL
+        run: |
+          ls -la $HOME/.buildozer/android/platform/android-sdk/build-tools/35.0.0/
+          test -f $HOME/.buildozer/android/platform/android-sdk/build-tools/35.0.0/aidl
+
+
       - name: Build APK
         run: |
           buildozer -v android debug
+
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
