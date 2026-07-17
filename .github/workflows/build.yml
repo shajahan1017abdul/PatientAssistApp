@@ -4,19 +4,26 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-22.04   # 👈 IMPORTANT (not latest)
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set up Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '17'
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y python3-pip build-essential git zip unzip openjdk-17-jdk
+          pip install --upgrade pip
+          pip install buildozer cython
 
       - name: Build APK
-        uses: ArtemSBulgakov/buildozer-action@v1
+        run: |
+          buildozer init || true
+          buildozer android debug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
         with:
-          command: buildozer android debug
+          name: apk
+          path: bin/*.apk
